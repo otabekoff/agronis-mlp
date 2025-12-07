@@ -24,11 +24,24 @@ export const Demo: React.FC = () => {
         body: JSON.stringify({ question }),
       });
 
-      const data = await res.json();
+      // Read as text first to avoid JSON parse errors on empty/non-JSON responses
+      const text = await res.text();
+      let data: any = null;
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (parseErr) {
+          // response was not JSON; we'll fall back to raw text below
+          data = null;
+        }
+      }
+
       if (!res.ok) {
-        setError(data?.details || data?.error || 'So‘rov bajarilmadi');
+        const msg = data?.details || data?.error || text || `So'rov xatosi: ${res.status}`;
+        setError(msg);
       } else {
-        setResponseText(data.answer || JSON.stringify(data));
+        const body = data?.answer || data || text || 'Hech qanday javob bo‘lmadi';
+        setResponseText(typeof body === 'string' ? body : JSON.stringify(body, null, 2));
       }
     } catch (err: any) {
       setError(err?.message || String(err));

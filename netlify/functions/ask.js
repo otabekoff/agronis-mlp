@@ -138,7 +138,7 @@ Respond in the same language as the question. Be helpful and accurate.`,
         headers,
         body: JSON.stringify({
           answer:
-            "AgroNIS haqida qo'shimcha ma'lumot uchun https://agronis.netlify.app ni ziyorat qiling.",
+            "AgroNIS haqida qo'shimcha ma'lumot uchun https://agronis.netlify.app yoki https://agronis.framer.website veb-sahifasiga tashrif buyurishingiz mumkin. Har ikki saytda /demo sahifasi mavjud.",
           project: "AgroNIS",
           fallback: true,
         }),
