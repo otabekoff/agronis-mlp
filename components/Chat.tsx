@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, ArrowLeft, Sprout, Bot } from 'lucide-react';
+import { Send, ArrowLeft, Bot } from 'lucide-react';
 import { TEXT } from '../utils/Localization';
 import { createChatSession } from '../services/geminiService';
 import { Chat as GeminiChat, GenerateContentResponse } from "@google/genai";
