@@ -30,7 +30,7 @@ export const Demo: React.FC = () => {
       if (text) {
         try {
           data = JSON.parse(text);
-        } catch (parseErr) {
+        } catch {
           // response was not JSON; we'll fall back to raw text below
           data = null;
         }
@@ -68,7 +68,7 @@ export const Demo: React.FC = () => {
   -H "Content-Type: application/json" \
   -d '{"question":"Loyiha nima qiladi?"}'`}</pre>
 
-        <p className="text-xs text-slate-500 mt-3">Eslatma: Agar backend kvotasi tugagan bo‘lsa, funksiya muqobil yoki yordamchi javob qaytaradi.</p>
+        <p className="text-xs mt-3 text-red-600/60 font-semibold">Eslatma: Agar backend kvotasi tugagan bo‘lsa, funksiya muqobil yoki yordamchi javob qaytaradi.</p>
       </div>
 
       <div className="bg-white rounded-lg p-4 shadow-sm">
