@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Terminal, SendSquare } from 'lucide-react';
+import { Terminal, Send } from 'lucide-react';
 
 export const Demo: React.FC = () => {
   const [question, setQuestion] = useState('What does your project do?');
@@ -71,7 +71,7 @@ export const Demo: React.FC = () => {
               disabled={loading}
               className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-60"
             >
-              <SendSquare className="w-4 h-4" />
+              <Send className="w-4 h-4" />
               {loading ? 'Sending...' : 'Send'}
             </button>
 
