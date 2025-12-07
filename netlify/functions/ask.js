@@ -1,8 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-
-// Initialize Gemini
-const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY || "" });
-
 // Project knowledge base for answering questions
 const PROJECT_CONTEXT = `
 AgroNIS - Aqlli Qishloq Xo'jaligi Tizimi (Smart Farming System)
@@ -79,10 +74,25 @@ export async function handler(event, context) {
       };
     }
 
-    // Generate response using Gemini
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-lite",
-      contents: `You are AgroNIS assistant. Answer questions about the AgroNIS smart farming project.
+    const apiKey = process.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: "API key not configured" })
+      };
+    }
+
+    // Call Gemini API via HTTP
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=" + apiKey,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `You are AgroNIS assistant. Answer questions about the AgroNIS smart farming project.
       
 Project Information:
 ${PROJECT_CONTEXT}
@@ -95,9 +105,27 @@ Instructions:
 - If asked in English, respond in English
 - Keep answers under 100 words
 - Be helpful and professional`
-    });
+            }]
+          }]
+        })
+      }
+    );
 
-    const answer = response.text || "Uzr, javob berolmadim.";
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Gemini API Error:", data);
+      return {
+        statusCode: response.status,
+        headers,
+        body: JSON.stringify({ 
+          error: "Failed to generate response",
+          details: data.error?.message || "Unknown error"
+        })
+      };
+    }
+
+    const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Uzr, javob berolmadim.";
 
     return {
       statusCode: 200,
