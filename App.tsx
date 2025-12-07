@@ -7,7 +7,8 @@ import { Devices } from './components/Devices';
 import { Settings } from './components/Settings';
 import { Chat } from './components/Chat';
 import { AppTab } from './types';
-import { LayoutGrid, BarChart3, Settings as SettingsIcon, Sprout, Cpu } from 'lucide-react';
+import { LayoutGrid, BarChart3, Settings as SettingsIcon, Sprout, Cpu, Info } from 'lucide-react';
+import { Demo } from './components/Demo';
 import { TEXT } from './utils/Localization';
 import { SENSOR_DATA, WEATHER_DATA, HISTORY_DATA } from './utils/Data';
 
@@ -33,6 +34,8 @@ const App: React.FC = () => {
         return <Devices />;
       case AppTab.SETTINGS:
         return <Settings />;
+      case AppTab.DEMO:
+        return <Demo />;
       case AppTab.CHAT:
         return <Chat onBack={() => setActiveTab(AppTab.DASHBOARD)} />;
       default:
@@ -82,6 +85,14 @@ const App: React.FC = () => {
            >
              <Cpu className="w-5 h-5" />
              {TEXT.nav.devices}
+           </button>
+
+           <button 
+             onClick={() => setActiveTab(AppTab.DEMO)}
+             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium ${activeTab === AppTab.DEMO ? 'bg-green-50 text-green-600' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'}`}
+           >
+             <Info className="w-5 h-5" />
+             Demo / API
            </button>
 
            <button 
@@ -160,6 +171,14 @@ const App: React.FC = () => {
             >
               <SettingsIcon className="w-6 h-6" />
               <span className="text-[10px] font-medium">{TEXT.nav.settings}</span>
+            </button>
+
+            <button 
+              onClick={() => setActiveTab(AppTab.DEMO)}
+              className={`flex flex-col items-center gap-1 transition-colors ${activeTab === AppTab.DEMO ? 'text-green-500' : 'text-slate-400'}`}
+            >
+              <Info className="w-6 h-6" />
+              <span className="text-[10px] font-medium">Demo</span>
             </button>
           </nav>
         )}

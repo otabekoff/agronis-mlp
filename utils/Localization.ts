@@ -4,7 +4,8 @@ export const TEXT = {
     dashboard: "Dashbord",
     analytics: "Tahlil",
     devices: "Qurilmalar",
-    settings: "Sozlamalar"
+    settings: "Sozlamalar",
+    demo: "Demo"
   },
   zeroState: {
     welcome: "AgroNISga xush kelibsiz",

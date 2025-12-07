@@ -37,6 +37,7 @@ export enum AppTab {
   ANALYTICS = 'analytics',
   DEVICES = 'devices',
   SETTINGS = 'settings',
+  DEMO = 'demo',
   CHAT = 'chat'
 }
 
