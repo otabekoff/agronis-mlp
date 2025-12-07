@@ -4,8 +4,15 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "24"
+  NODE_VERSION = "18"
 
+# API endpoint redirect (must come before catch-all)
+[[redirects]]
+  from = "/api/ask"
+  to = "/.netlify/functions/ask"
+  status = 200
+
+# SPA catch-all (must come last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
